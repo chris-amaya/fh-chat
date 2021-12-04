@@ -11,6 +11,11 @@
     ]
   },
   "scripts": {
+    "backend:start": "yarn workspace @chat/backend start",
+    "backend:dev": "yarn workspace @chat/backend dev",
+    "backend:build": "yarn workspace @chat/backend build",
+    "backend:test": "yarn workspace @chat/backend test",
+    "frontend:start": "yarn workspace @chat/frontend start",
     "reset": "npx rimraf ./**/node_modules yarn.lock",
     "prettier": "prettier --ignore-path .gitignore \"**/*.+(ts|tsx)\" --write"
   },

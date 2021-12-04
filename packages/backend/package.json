@@ -1,12 +1,13 @@
 {
   "name": "@chat/backend",
   "version": "0.0.1",
-  "main": "index.js",
+  "main": "src/index.ts",
   "author": "Christian Eduardo Amaya Rivas",
   "license": "MIT",
   "scripts": {
-    "dev": "nodemon index.ts",
-    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "nodemon src/index.ts",
+    "build": "tsc -d",
     "build:babel": "npx babel src --out-dir lib --extensions .ts,.tsx --source-maps inline"
   },
   "dependencies": {

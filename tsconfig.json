@@ -6,8 +6,6 @@
     "paths": {
       "@chat/*": ["packages/*"]
     },
-
-    "noEmit": true,
     "strict": true
   }
 }
