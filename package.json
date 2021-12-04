@@ -11,10 +11,14 @@
     ]
   },
   "scripts": {
-    "reset": "npx rimraf ./**/node_modules yarn.lock"
+    "reset": "npx rimraf ./**/node_modules yarn.lock",
+    "prettier": "prettier --ignore-path .gitignore \"**/*.+(ts|tsx)\" --write"
   },
   "devDependencies": {
     "rimraf": "^3.0.2",
     "typescript": "^4.5.2"
+  },
+  "dependencies": {
+    "prettier": "^2.5.0"
   }
 }

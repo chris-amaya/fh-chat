@@ -1,1 +1,1 @@
-export const testVar = "oasdif";
+export const testVar = 'oasdif'
