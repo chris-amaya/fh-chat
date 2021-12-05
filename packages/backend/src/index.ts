@@ -1,6 +1,6 @@
-import AppServer from './classes/AppServer'
-const server = new AppServer(8000)
+import App from './classes/App'
+const app = new App(8000)
 
-server.start(() => {
-  console.log(`Server Running on ${server.port}`)
+app.start(() => {
+  console.log(`Server Running on ${app.port}`)
 })

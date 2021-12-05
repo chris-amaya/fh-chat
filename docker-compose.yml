@@ -1,5 +1,17 @@
 version: '3.7'
 services:
+  mongo:
+    image: mongo
+    ports:
+      - '27017:27017'
+    volumes:
+      - /data/db:/data/db
+    restart: always
+    networks:
+      - app-network
+    logging:
+      driver: none
+
   backend:
     restart: unless-stopped
     build:
@@ -15,6 +27,8 @@ services:
       - app-network
     environment:
       CHOKIDAR_USEPOLLING: 'true'
+    depends_on:
+      - mongo
     command: yarn backend:dev
 
   frontend:

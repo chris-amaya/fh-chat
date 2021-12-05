@@ -1,8 +1,9 @@
 import express from 'express'
 import cors from 'cors'
 import http from 'http'
+import connectDB from '../db/config'
 
-export default class AppServer {
+export default class App {
   public app: express.Application
   public port: number
   public httpServer
@@ -10,6 +11,7 @@ export default class AppServer {
   constructor(port: number) {
     this.port = port
     this.app = express()
+    connectDB()
     this.httpServer = http.createServer(this.app)
     this.middlewares()
   }
