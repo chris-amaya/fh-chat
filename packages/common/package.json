@@ -3,5 +3,8 @@
   "version": "0.0.1",
   "main": "index.ts",
   "author": "Christian Eduardo Amaya Rivas",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "mongoose": "^6.0.14"
+  }
 }

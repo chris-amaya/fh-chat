@@ -1,1 +1,1 @@
-export const testVar = 'oasdif'
+export * from './src/types'

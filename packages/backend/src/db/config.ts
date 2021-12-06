@@ -2,7 +2,7 @@ import mongoose from 'mongoose'
 
 export default async function connectDB() {
   try {
-    await mongoose.connect('mongodb://mongo/test')
+    await mongoose.connect('mongodb://mongo')
     console.log('DB Connected')
   } catch (error) {
     console.log(error)
