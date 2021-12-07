@@ -1,12 +1,11 @@
 import {Request, Response} from 'express'
-
-const Mensaje = require('../models/mensaje')
+import {Message} from '../models/Messages'
 
 const getMessages = async (req: Request, res: Response) => {
-  const miId = req.uid
+  const miId = (req as any).uid
   const mensajesDe = req.params.de
 
-  const last30 = await Mensaje.find({
+  const last30 = await Message.find({
     $or: [
       {de: miId, para: mensajesDe},
       {de: mensajesDe, para: miId},

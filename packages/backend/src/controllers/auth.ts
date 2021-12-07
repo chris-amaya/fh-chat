@@ -1,10 +1,7 @@
 import {Request, Response} from 'express'
 import {User} from '../models/User'
-
-// const Usuario = require('../models/usuario')
-// UserModel
-const bcrypt = require('bcryptjs')
-const {generarJWT} = require('../helpers/jwt')
+import bcrypt from 'bcryptjs'
+import {generarJWT} from '../helpers/jwt'
 
 async function crearUsuario(req: Request, res: Response) {
   try {
@@ -80,7 +77,7 @@ async function login(req: Request, res: Response) {
 }
 
 async function renewToken(req: Request, res: Response) {
-  const uid = req.uid
+  const uid = (req as any).uid
   const token = await generarJWT(uid)
 
   const usuario = await User.findById(uid)

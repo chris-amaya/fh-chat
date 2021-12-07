@@ -1,22 +1,20 @@
 import React from 'react'
-import logo from './logo.svg'
-import './App.css'
+import moment from 'moment'
+import {AuthProvider} from './auth/AuthContext'
+import {ChatProvider} from './context/chat/chatReducer'
+import {SocketProvider} from './context/SocketContext'
+import AppRouter from './router/AppRouter'
+import 'moment/locale/es'
+moment.locale('es')
 
-function App() {
+export default function ChatApp() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer">
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ChatProvider>
+      <AuthProvider>
+        <SocketProvider>
+          <AppRouter></AppRouter>
+        </SocketProvider>
+      </AuthProvider>
+    </ChatProvider>
   )
 }
-
-export default App

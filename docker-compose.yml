@@ -1,4 +1,5 @@
 version: '3.7'
+# TODO: mount node_modules
 services:
   mongo:
     image: mongo

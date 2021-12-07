@@ -6,7 +6,7 @@ const getJWT = (uid: string) => {
 
     jwt.sign(
       payload,
-      process.env.JWT_KEY,
+      process.env.JWT_KEY as jwt.Secret,
       {
         expiresIn: '24h',
       },
@@ -26,7 +26,7 @@ const getJWT = (uid: string) => {
 const checkJWT = (token = '') => {
   try {
     // TODO: improve this type
-    const {uid} = jwt.verify(token, process.env.JWT_KEY) as any
+    const {uid} = jwt.verify(token, process.env.JWT_KEY as jwt.Secret) as any
 
     return [true, uid]
   } catch (error) {

@@ -20,8 +20,11 @@ export default function validateJWT(
       uid: string
     }
 
-    const payload = jwt.verify(token, process.env.JWT_KEY) as Decoded
-    req.uid = payload.uid
+    const payload = jwt.verify(
+      token,
+      process.env.JWT_KEY as jwt.Secret,
+    ) as unknown as Decoded
+    ;(req as any).uid = payload.uid
 
     next()
   } catch (error) {
