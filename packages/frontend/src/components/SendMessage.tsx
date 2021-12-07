@@ -1,6 +1,6 @@
 import React, {useContext, useState} from 'react'
 import {useAuthContext} from '../auth/AuthContext'
-import {ChatContext} from '../context/chat/chatReducer'
+import {ChatContext} from '../context/chat/chatContext'
 
 import {useSocketContext} from '../context/SocketContext'
 
@@ -11,16 +11,16 @@ export default function SendMessage() {
   const {auth} = useAuthContext()
   const {state} = useContext(ChatContext)
 
-  const onChange = ({target}: any) => {
-    setMensaje(target.value)
+  const onChange = ({target}: React.FormEvent) => {
+    const value = (target as HTMLInputElement).value
+    setMensaje(value)
   }
 
-  const onSubmit = (e: any) => {
+  const onSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     if (mensaje.length === 0 && !auth.uid) return
     setMensaje('')
 
-    // TODO: hacer el dispatch del mensaje...
     socket?.emit('direct-message', {
       from: auth.uid!,
       to: state.activeChat,
@@ -41,7 +41,7 @@ export default function SendMessage() {
           />
         </div>
         <div className="col-sm-3 text-center">
-          <button className="msg_send_btn mt-3" type="button">
+          <button className="msg_send_btn mt-3" type="submit">
             enviar
           </button>
         </div>

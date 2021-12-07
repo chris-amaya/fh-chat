@@ -7,6 +7,7 @@ import connectDB from '../db/config'
 import AuthRouter from '../router/auth'
 import MessageRouter from '../router/messages'
 import {ISocketOn, IScocketEmit} from '@chat/common'
+import SocketsApp from './SocketApp'
 
 export default class App {
   public app: express.Application
@@ -37,7 +38,9 @@ export default class App {
     this.app.use('/api/mensajes', MessageRouter)
   }
 
-  sockets() {}
+  sockets() {
+    new SocketsApp(this.io)
+  }
 
   start(callback: () => void) {
     this.httpServer.listen(this.port, () => callback())

@@ -1,16 +1,13 @@
-// import {PropsWithChildren} from 'react'
-// import {createCtx} from '../../utils/createCtx'
-// import {chatReducer} from './chatReducer'
+import createCtx from '../../utils/createCtx.useReducer'
+import {reducer} from './chatReducer'
 
-// interface IChatState {
-//   uid: string
-//   activeChat: string
-//   users: any
-//   messages: any
-// }
+const initialState = {
+  uid: '',
+  activeChat: '',
+  users: [],
+  messages: [],
+}
 
-// export const ChatProvider = ({children}: PropsWithChildren<{}>) => {
-//   return <Provider value={ChatState}>{children}</Provider>
-// }
+const [Context, Provider] = createCtx(reducer, initialState)
 
-export {}
+export {Context as ChatContext, Provider as ChatProvider}

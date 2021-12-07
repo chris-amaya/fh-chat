@@ -1,7 +1,7 @@
 import React from 'react'
 import moment from 'moment'
 import {AuthProvider} from './auth/AuthContext'
-import {ChatProvider} from './context/chat/chatReducer'
+import {ChatProvider} from './context/chat/chatContext'
 import {SocketProvider} from './context/SocketContext'
 import AppRouter from './router/AppRouter'
 import 'moment/locale/es'
@@ -12,7 +12,7 @@ export default function ChatApp() {
     <ChatProvider>
       <AuthProvider>
         <SocketProvider>
-          <AppRouter></AppRouter>
+          <AppRouter />
         </SocketProvider>
       </AuthProvider>
     </ChatProvider>

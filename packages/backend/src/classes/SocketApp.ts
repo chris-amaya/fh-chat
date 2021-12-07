@@ -22,19 +22,13 @@ export default class SocketsApp {
         socket.handshake.query['x-token'] as string,
       )
 
-      if (!isValid) {
+      if (!isValid || typeof uid !== 'string') {
         return socket.disconnect()
       }
 
-      let resp = userConnected(uid)
-
-      if (!resp) {
-        return socket.disconnect()
-      }
-
+      await userConnected(uid)
       socket.join(uid)
-
-      this.io.emit('list-users', await getUsers())
+      this.io.sockets.emit('list-users', await getUsers())
       socket.on('direct-message', async (payload) => {
         const message = await saveMessage(payload)
         if (message) {

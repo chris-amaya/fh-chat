@@ -2,7 +2,7 @@ import {Request, Response} from 'express'
 import {Message} from '../models/Messages'
 
 const getMessages = async (req: Request, res: Response) => {
-  const miId = (req as any).uid
+  const miId = req.uid
   const mensajesDe = req.params.de
 
   const last30 = await Message.find({

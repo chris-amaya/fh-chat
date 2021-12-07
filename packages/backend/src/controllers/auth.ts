@@ -27,8 +27,9 @@ async function crearUsuario(req: Request, res: Response) {
     const token = await generarJWT(usuario.id)
 
     res.json({
-      email,
+      ok: true,
       token,
+      usuario,
     })
   } catch (error) {
     console.log(error)
@@ -37,8 +38,6 @@ async function crearUsuario(req: Request, res: Response) {
       msg: 'Hable con el administrador',
     })
   }
-
-  res.json({ok: true, usuario: '1234'})
 }
 
 async function login(req: Request, res: Response) {
@@ -77,7 +76,10 @@ async function login(req: Request, res: Response) {
 }
 
 async function renewToken(req: Request, res: Response) {
-  const uid = (req as any).uid
+  const uid = req.uid
+
+  if (!uid) throw new Error('uid not found')
+
   const token = await generarJWT(uid)
 
   const usuario = await User.findById(uid)

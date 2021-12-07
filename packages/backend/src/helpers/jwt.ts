@@ -1,3 +1,4 @@
+import {IUser} from '@chat/common'
 import jwt from 'jsonwebtoken'
 
 const getJWT = (uid: string) => {
@@ -6,7 +7,7 @@ const getJWT = (uid: string) => {
 
     jwt.sign(
       payload,
-      process.env.JWT_KEY as jwt.Secret,
+      process.env.JWT_KEY,
       {
         expiresIn: '24h',
       },
@@ -25,9 +26,7 @@ const getJWT = (uid: string) => {
 
 const checkJWT = (token = '') => {
   try {
-    // TODO: improve this type
-    const {uid} = jwt.verify(token, process.env.JWT_KEY as jwt.Secret) as any
-
+    const {uid} = jwt.verify(token, process.env.JWT_KEY) as IUser
     return [true, uid]
   } catch (error) {
     return [false, null]

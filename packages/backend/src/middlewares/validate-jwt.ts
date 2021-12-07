@@ -24,7 +24,7 @@ export default function validateJWT(
       token,
       process.env.JWT_KEY as jwt.Secret,
     ) as unknown as Decoded
-    ;(req as any).uid = payload.uid
+    req.uid = payload.uid
 
     next()
   } catch (error) {

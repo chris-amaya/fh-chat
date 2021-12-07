@@ -1,7 +1,6 @@
 import createCtx from '../utils/createCtx'
-import {ReactNode, useCallback, useContext, useState} from 'react'
-import {fetchWithoutToken} from '../helpers/fetch'
-import {ChatContext} from '../context/chat/chatReducer'
+import {ReactNode, useCallback, useState} from 'react'
+import {fetchWithoutToken, fetchWithToken} from '../helpers/fetch'
 
 const initialState = {
   uid: null,
@@ -33,7 +32,6 @@ const [useAuthContext, Provider] = createCtx<AuthContext>()
 
 function AuthProvider({children}: {children: ReactNode}) {
   const [auth, setAuth] = useState(initialState)
-  const {dispatch} = useContext(ChatContext)
 
   async function login(email: string, password: string) {
     const resp = await fetchWithoutToken('login', {email, password}, 'POST')
@@ -53,11 +51,11 @@ function AuthProvider({children}: {children: ReactNode}) {
   }
 
   async function signup(name: string, email: string, password: string) {
-    const resp = (await fetchWithoutToken(
+    const resp = await fetchWithoutToken(
       'login/new',
-      {email, password},
+      {email, password, name},
       'POST',
-    )) as {msg: string; ok: boolean; [key: string]: any}
+    )
     if (resp.ok) {
       localStorage.setItem('token', resp.token)
 
@@ -91,7 +89,7 @@ function AuthProvider({children}: {children: ReactNode}) {
       return false
     }
 
-    const resp = await fetchWithoutToken('login/renew')
+    const resp = await fetchWithToken('login/renew')
     if (resp.ok) {
       localStorage.setItem('token', resp.token)
       const {usuario} = resp
@@ -120,7 +118,7 @@ function AuthProvider({children}: {children: ReactNode}) {
 
   const logout = () => {
     localStorage.removeItem('token')
-    dispatch({type: 'LogOut'})
+    // dispatch({type: 'LogOut'})
     setAuth({
       ...auth,
       checking: false,

@@ -1,11 +1,5 @@
 import {Schema, model} from 'mongoose'
-
-export interface IUser {
-  name: string
-  email: string
-  password: string
-  online: boolean
-}
+import {IUser} from '@chat/common'
 
 const UserSchema = new Schema<IUser>({
   name: {
@@ -28,6 +22,7 @@ const UserSchema = new Schema<IUser>({
 })
 
 UserSchema.method('toJSON', function () {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const {__v, _id, password, ...object} = this.toObject()
   object.uid = _id
   return object

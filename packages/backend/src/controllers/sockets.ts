@@ -1,6 +1,6 @@
-import {IMessage} from '@chat/common'
+import {IMessage, IUser} from '@chat/common'
 import {Message} from '../models/Messages'
-import {IUser, User} from '../models/User'
+import {User} from '../models/User'
 
 async function userConnected(uid: string): Promise<IUser | false> {
   const user = await User.findById(uid)
@@ -28,12 +28,12 @@ async function userDisconnected(uid: string) {
   return usuario
 }
 
-async function getUsers(): Promise<any> {
-  const usuarios = await User.find().sort('-online')
-  return usuarios
+async function getUsers() {
+  const users = await User.find().sort('-online')
+  return users
 }
 
-async function saveMessage(payload: any): Promise<IMessage | false> {
+async function saveMessage(payload: IMessage): Promise<IMessage | false> {
   try {
     const mensaje = new Message(payload)
     await mensaje.save()

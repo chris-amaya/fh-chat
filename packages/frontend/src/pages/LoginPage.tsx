@@ -25,8 +25,8 @@ export default function LoginPage() {
     }
   }, [])
 
-  const onChange = ({target}: any) => {
-    const {name, value} = target
+  const onChange = ({target}: React.FormEvent) => {
+    const {name, value} = target as HTMLInputElement
     setForm({...form, [name]: value})
   }
 
@@ -34,7 +34,7 @@ export default function LoginPage() {
     setForm({...form, rememberme: !form.rememberme})
   }
 
-  const onSubmit = (e: any) => {
+  const onSubmit = (e: React.FormEvent) => {
     e.preventDefault()
 
     form.rememberme

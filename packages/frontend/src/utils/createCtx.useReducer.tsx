@@ -12,6 +12,7 @@ export default function createCtx<StateType, ActionType>(
     state: initialState,
     dispatch: defaultDispatch, // just to mock out the dispatch type and make it not optioanl
   })
+  // eslint-disable-next-line @typescript-eslint/ban-types
   function Provider(props: React.PropsWithChildren<{}>) {
     const [state, dispatch] = React.useReducer<
       React.Reducer<StateType, ActionType>

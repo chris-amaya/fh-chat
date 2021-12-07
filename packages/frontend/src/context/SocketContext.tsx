@@ -1,13 +1,11 @@
 import React, {useContext, useEffect} from 'react'
 import createCtx from '../utils/createCtx'
 
-import {io, Socket} from 'socket.io-client'
+import {Socket} from 'socket.io-client'
 import {useAuthContext} from '../auth/AuthContext'
-import {ChatContext} from './chat/chatReducer'
+import {ChatContext} from './chat/chatContext'
 import {useSocket} from '../hooks/useSocket'
 import {IScocketEmit, ISocketOn} from '@chat/common'
-
-const initialState = {}
 
 interface Context {
   socket: Socket<IScocketEmit, ISocketOn> | undefined
@@ -18,7 +16,7 @@ const [useSocketContext, Provider] = createCtx<Context>()
 
 function SocketProvider({children}: {children: React.ReactNode}) {
   const {socket, handleConnect, handleDisconnect, online} = useSocket(
-    'http://localhost:8080',
+    'http://localhost:8000',
   )
   const {auth} = useAuthContext()
   const {dispatch} = useContext(ChatContext)
@@ -30,19 +28,19 @@ function SocketProvider({children}: {children: React.ReactNode}) {
   }, [auth, handleConnect])
 
   useEffect(() => {
-    socket?.on('list-users', (usuarios) => {
-      dispatch({
-        type: 'Users',
-        payload: usuarios,
-      })
-    })
-  }, [socket, dispatch])
-
-  useEffect(() => {
     if (!auth.logged) {
       handleDisconnect()
     }
   }, [auth, handleDisconnect])
+
+  useEffect(() => {
+    socket?.on('list-users', (users) => {
+      dispatch({
+        type: 'Load Users',
+        payload: users,
+      })
+    })
+  }, [socket, dispatch])
 
   useEffect(() => {
     socket?.on('direct-message', (message) => {

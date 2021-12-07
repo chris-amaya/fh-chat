@@ -6,8 +6,8 @@ services:
     ports:
       - '27017:27017'
     volumes:
-      - /data/db:/data/db
-    restart: always
+      - ./data:/data/db
+    # restart: always
     networks:
       - app-network
     logging:
@@ -22,8 +22,8 @@ services:
     ports:
       - 8000:8000
     volumes:
-      - ./packages:/usr/src/app/packages
-      - /usr/src/app/backend/node_modules
+      - ./packages/backend:/usr/src/app/packages/backend
+      - /usr/src/app/packages/backend/node_modules
     networks:
       - app-network
     environment:
@@ -40,8 +40,8 @@ services:
     ports:
       - 3000:3000
     volumes:
-      - ./packages:/usr/src/app/packages
-      - /usr/src/app/frontend/node_modules
+      - ./packages/frontend:/usr/src/app/packages/frontend
+      - /usr/src/app/packages/frontend/node_modules
     networks:
       - app-network
     environment:

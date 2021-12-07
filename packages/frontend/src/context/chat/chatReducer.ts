@@ -1,7 +1,4 @@
-import createCtx from '../../utils/createCtx.useReducer'
-// import { IMessage } from '../../../../common/src/types/Messages';
-
-import {IMessage} from '@chat/common'
+import {IUser, IMessage} from '@chat/common'
 
 const initialState = {
   uid: '',
@@ -13,29 +10,29 @@ const initialState = {
 type State = {
   uid: string
   activeChat: string
-  users: string[]
+  users: IUser[]
   messages: IMessage[]
 }
 
 type Action =
   | {type: 'LogOut'}
-  | {type: 'Users'; payload: any}
-  | {type: 'Chat Is Focus'; payload: any}
-  | {type: 'New Message'; payload: any}
-  | {type: 'Load Messages'; payload: any}
+  | {type: 'New Message'; payload: IMessage}
+  | {type: 'Load Users'; payload: IUser[]}
+  | {type: 'Load Chat'; payload: string}
+  | {type: 'Load Messages'; payload: IMessage[]}
 
-function reducer(state: State = initialState, action: Action): State {
+export function reducer(state: State = initialState, action: Action): State {
   switch (action.type) {
     case 'LogOut':
       return initialState
 
-    case 'Users':
+    case 'Load Users':
       return {
         ...state,
-        users: action.payload,
+        users: [...action.payload],
       }
 
-    case 'Chat Is Focus':
+    case 'Load Chat':
       if (state.activeChat === action.payload) return state
       return {
         ...state,
@@ -44,9 +41,16 @@ function reducer(state: State = initialState, action: Action): State {
       }
 
     case 'New Message':
-      return {
-        ...state,
-        messages: [...state.messages, ...action.payload],
+      if (
+        state.activeChat === action.payload.from ||
+        state.activeChat === action.payload.to
+      ) {
+        return {
+          ...state,
+          messages: [...state.messages, action.payload],
+        }
+      } else {
+        return state
       }
 
     case 'Load Messages':
@@ -56,10 +60,6 @@ function reducer(state: State = initialState, action: Action): State {
       }
 
     default:
-      throw new Error('Action not found')
+      return state
   }
 }
-
-const [Context, Provider] = createCtx(reducer, initialState)
-
-export {Context as ChatContext, Provider as ChatProvider}

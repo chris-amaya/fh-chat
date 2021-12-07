@@ -12,21 +12,17 @@ export default function RegisterPage() {
     name: '',
   })
 
-  const onChange = ({target}: any) => {
-    const {name, value} = target
+  const onChange = ({target}: React.FormEvent) => {
+    const {name, value} = target as HTMLInputElement
     setForm({...form, [name]: value})
   }
 
-  const onSubmit = async (e: any) => {
+  const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-
-    // form.rememberme
-    //   ? localStorage.setItem('email', form.email)
-    //   : localStorage.removeItem('email')
 
     const {email, password, name} = form
 
-    const msg = await signup(name, email, password)
+    const msg = (await signup(name, email, password)) as unknown as boolean
 
     if (msg !== true) {
       Swal.fire('Error', 'Verifique el usuario y contraseña', 'error')

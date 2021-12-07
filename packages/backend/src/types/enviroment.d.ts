@@ -1,7 +1,9 @@
+import jwt from 'jsonwebtoken'
+
 declare global {
   namespace NodeJS {
     interface ProcessEnv {
-      JWT_KEY: string
+      JWT_KEY: jwt.Secret
     }
   }
 }

@@ -8,4 +8,4 @@ export interface ISocketOn {
   'direct-message': socketOn<IDirectMessage>
 }
 
-interface IDirectMessage extends IMessage {}
+export type IDirectMessage = IMessage

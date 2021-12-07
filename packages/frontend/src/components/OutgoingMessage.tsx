@@ -1,10 +1,15 @@
+import {IMessage} from '@chat/common'
 import React from 'react'
 
-function OutgoingMessage({msg}: any) {
+interface Props {
+  message: IMessage
+}
+
+function OutgoingMessage({message}: Props) {
   return (
     <div className="outgoing_msg">
       <div className="sent_msg">
-        <p>{msg.mensaje}</p>
+        <p>{message.message}</p>
         <span className="time_date"> 11:01 AM | June 9</span>
       </div>
     </div>

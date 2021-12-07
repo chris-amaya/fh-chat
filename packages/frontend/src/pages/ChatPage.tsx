@@ -2,7 +2,7 @@ import React, {useContext} from 'react'
 import ChatSelect from '../components/ChatSelect'
 import InboxPeople from '../components/InboxPeople'
 import Messages from '../components/Messages'
-import {ChatContext} from '../context/chat/chatReducer'
+import {ChatContext} from '../context/chat/chatContext'
 
 import '../css/chat.css'
 

@@ -1,13 +1,10 @@
-import {IMessage} from '@chat/common'
+import {IMessage, IUser} from '@chat/common'
 
 interface socketEmit<T> {
   (data: T): void
 }
 
 export type IScocketEmit = {
-  'list-users': IListUsers | socketEmit<IListUsers>
-  'direct-message': IDirectMessage | socketEmit<IDirectMessage>
+  'list-users': IUser[] | socketEmit<IUser[]>
+  'direct-message': IMessage | socketEmit<IMessage>
 }
-
-interface IListUsers extends IMessage {}
-interface IDirectMessage extends IMessage {}

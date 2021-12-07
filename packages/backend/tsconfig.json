@@ -6,9 +6,24 @@
     "lib": ["ES2019"],
     "module": "commonjs",
     "moduleResolution": "node",
-    "skipLibCheck": false,
     "target": "es6",
     "types": ["node", "jest"],
-    "outDir": "dist"
+    "outDir": "dist",
+    "typeRoots": ["src/types"],
+    "noEmit": true
+  },
+  "ts-node": {
+    // It is faster to skip typechecking.
+    // Remove if you want ts-node to do typechecking.
+    "transpileOnly": true,
+
+    "files": true,
+
+    "compilerOptions": {
+      "typeRoots": ["src/types"]
+      // compilerOptions specified here will override those declared below,
+      // but *only* in ts-node.  Useful if you want ts-node and tsc to use
+      // different options with a single tsconfig.json.
+    }
   }
 }

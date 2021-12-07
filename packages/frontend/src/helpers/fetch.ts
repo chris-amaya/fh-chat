@@ -3,7 +3,7 @@ const baseURL = process.env.REACT_APP_API_URL
 // TODO: wrap this functions into one or in a class
 export async function fetchWithoutToken(
   endpoint: string,
-  data?: any,
+  data?: Record<string, unknown>,
   method = 'GET',
 ) {
   const url = `${baseURL}/${endpoint}`
@@ -26,7 +26,7 @@ export async function fetchWithoutToken(
 
 export async function fetchWithToken(
   endpoint: string,
-  data?: any,
+  data?: Record<string, unknown>,
   method = 'GET',
 ) {
   const url = `${baseURL}/${endpoint}`
